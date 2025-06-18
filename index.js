@@ -1,16 +1,15 @@
 const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-
 const app = express();
-app.use(cors());
-app.use(express.json());
+
+// ★ ここを追加
+const itemsRouter = require('./routes/items');
+app.use('/items', itemsRouter);
 
 app.get('/', (req, res) => {
   res.send('API is working!');
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
