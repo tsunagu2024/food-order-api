@@ -1,15 +1,16 @@
 const express = require('express');
-const app = express();
+const router = express.Router();
 
-// ★ ここを追加
-const itemsRouter = require('./routes/items');
-app.use('/items', itemsRouter);
+// 仮の商品データ
+const items = [
+  { id: 1, name: 'おにぎり', price: 120 },
+  { id: 2, name: '味噌汁', price: 100 },
+  { id: 3, name: 'たまご焼き', price: 150 }
+];
 
-app.get('/', (req, res) => {
-  res.send('API is working!');
+// GET /items
+router.get('/', (req, res) => {
+  res.json(items);
 });
 
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+module.exports = router;
