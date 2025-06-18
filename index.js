@@ -1,16 +1,17 @@
 const express = require('express');
-const router = express.Router();
+const app = express();
 
-// 仮の商品データ
-const items = [
-  { id: 1, name: 'おにぎり', price: 120 },
-  { id: 2, name: '味噌汁', price: 100 },
-  { id: 3, name: 'たまご焼き', price: 150 }
-];
+// ルーティング設定
+const itemsRouter = require('./routes/items');
+app.use('/items', itemsRouter);
 
-// GET /items
-router.get('/', (req, res) => {
-  res.json(items);
+// ポート指定（Renderが環境変数 PORT を使う）
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.send('API is working!');
 });
 
-module.exports = router;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
