@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.use(express.json());
 
 // ルーティング設定
 const itemsRouter = require('./routes/items');
