@@ -5,6 +5,9 @@ const app = express();
 const itemsRouter = require('./routes/items');
 app.use('/items', itemsRouter);
 
+const ordersRouter = require('./routes/orders');
+app.use('/orders', ordersRouter);
+
 // ポート指定（Renderが環境変数 PORT を使う）
 const PORT = process.env.PORT || 3000;
 
