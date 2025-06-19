@@ -1,14 +1,28 @@
 const express = require('express');
 const router = express.Router();
 
-const orders = []; // 仮の注文保存（サーバー再起動で消える）
+// 仮の注文データ
+const orders = [];
 
 // POST /orders
 router.post('/', (req, res) => {
-  const order = req.body;
-  orders.push(order); // 配列に保存
-  console.log('New order received:', order);
-  res.status(201).json({ message: 'Order received!', order });
+  const { itemId, quantity, note } = req.body;
+
+  if (!itemId || !quantity) {
+    return res.status(400).json({ status: 'error', message: 'itemIdとquantityは必須です' });
+  }
+
+  const newOrder = {
+    id: orders.length + 1,
+    itemId,
+    quantity,
+    note: note || '',
+    createdAt: new Date().toISOString()
+  };
+
+  orders.push(newOrder);
+
+  res.json({ status: 'success', message: '注文を受け付けました', order: newOrder });
 });
 
 // GET /orders
