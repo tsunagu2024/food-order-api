@@ -13,3 +13,22 @@ router.get('/', (req, res) => {
 });
 
 module.exports = router;
+
+// POST /items
+router.post('/', (req, res) => {
+  const { name, price } = req.body;
+
+  if (!name || !price) {
+    return res.status(400).json({ status: 'error', message: 'nameとpriceは必須です' });
+  }
+
+  const newItem = {
+    id: items.length + 1,
+    name,
+    price,
+  };
+
+  items.push(newItem);
+
+  res.json({ status: 'success', message: '商品を追加しました', item: newItem });
+});
